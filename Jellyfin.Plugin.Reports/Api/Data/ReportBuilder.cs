@@ -168,6 +168,7 @@ namespace Jellyfin.Plugin.Reports.Api.Data
                         HeaderMetadata.Video,
                         HeaderMetadata.Resolution,
                         HeaderMetadata.Audio,
+                        HeaderMetadata.AudioLanguage,
                         HeaderMetadata.Subtitles,
                         HeaderMetadata.Trailers,
                         HeaderMetadata.Specials,
@@ -506,6 +507,10 @@ namespace Jellyfin.Plugin.Reports.Api.Data
 
                 case HeaderMetadata.Audio:
                     option.Column = (i, r) => this.GetAudioStream(i);
+                    break;
+
+                case HeaderMetadata.AudioLanguage:
+                    option.Column = (i, r) => this.GetMediaSourceAudioLanguages(i);
                     break;
 
                 case HeaderMetadata.EmbeddedImage:

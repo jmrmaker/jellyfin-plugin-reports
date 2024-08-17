@@ -151,6 +151,33 @@ namespace Jellyfin.Plugin.Reports.Api.Common
             return null;
         }
 
+        /// <summary> Gets media language information. </summary>
+        /// <param name="item"> The item. </param>
+        /// <returns> The media language information. </returns>
+        protected string GetMediaSourceAudioLanguages(BaseItem item)
+        {
+            if (item is IHasMediaSources mediaSource)
+            {
+                var mediaSources = mediaSource.GetMediaSources(false);
+                
+                if (mediaSources == null || mediaSources.Count == 0)
+                    return null;
+        
+                var audioLanguages = new List<string>();
+                foreach (var stream in mediaSources.SelectMany(ms => ms.MediaStreams))
+                {
+                    if (stream.Type == MediaStreamType.Audio && !string.IsNullOrEmpty(stream.Language))
+                    {
+                        audioLanguages.Add(stream.Language);
+                    }
+                }
+        
+                return string.Join(", ", audioLanguages);
+            }
+        
+            return null;
+        }
+
         /// <summary> Gets an object. </summary>
         /// <typeparam name="TItem"> Generic type parameter. </typeparam>
         /// <typeparam name="TReturn"> Type of the r. </typeparam>
