@@ -24,6 +24,7 @@ namespace Jellyfin.Plugin.Reports.Api.Common
         Disc,
         Track,
         Audio,
+        AudioLanguage,
         EmbeddedImage,
         Video,
         Resolution,
